@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import network.ApiServices
 import network.PostModel
+import org.koin.core.time.Timer
 
 class SharedPostsViewModel(
     private val apiServices: ApiServices
@@ -25,6 +26,20 @@ class SharedPostsViewModel(
             result.fold(
                 onSuccess = {
                     _posts.value = it
+                },
+                onFailure = {
+                    it.printStackTrace()
+                }
+            )
+        }
+    }
+
+    fun deletePost(postId: Int) {
+        viewModelScope.launch {
+            val result = apiServices.deletePost(postId)
+            result.fold(
+                onSuccess = {
+                    _posts.value = _posts.value.filter { it.id != postId }
                 },
                 onFailure = {
                     it.printStackTrace()
