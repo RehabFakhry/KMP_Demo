@@ -79,6 +79,8 @@ kotlin {
             implementation(libs.lifecycle.viewmodel)
             implementation(libs.navigation.compose)
             implementation(libs.kotlinx.coroutines.android)
+            implementation(libs.slf4j.api)
+            implementation(libs.slf4j.slf4j.simple)
             implementation(libs.timber)
         }
         desktopMain.dependencies {
