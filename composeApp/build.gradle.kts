@@ -57,10 +57,9 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
-
+            implementation(libs.timber)
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
-
             implementation(libs.ktor.client.okhttp)
         }
         commonMain.dependencies {
@@ -76,9 +75,11 @@ kotlin {
             api(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
+            implementation(libs.koin.androidx.compose)
             implementation(libs.lifecycle.viewmodel)
             implementation(libs.navigation.compose)
             implementation(libs.kotlinx.coroutines.android)
+            implementation(libs.timber)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
