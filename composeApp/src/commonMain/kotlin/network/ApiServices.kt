@@ -10,9 +10,9 @@ import io.ktor.client.request.put
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.ContentType
+import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
 import io.ktor.http.isSuccess
-import io.ktor.http.HttpStatusCode
 import kotlinx.serialization.json.Json
 
 class ApiServices(private val httpClient: HttpClient) {
@@ -27,7 +27,7 @@ class ApiServices(private val httpClient: HttpClient) {
         }
     }
 
-    suspend fun deletePost(id: Int): Result<Boolean> {
+    suspend fun deletePosts(id: Int): Result<Boolean> {
         return try {
             val response: HttpResponse =
                 httpClient.delete("https://jsonplaceholder.typicode.com/posts/$id")
