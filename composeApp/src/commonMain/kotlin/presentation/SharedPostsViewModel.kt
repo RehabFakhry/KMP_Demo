@@ -50,6 +50,20 @@ class SharedPostsViewModel(
         }
     }
 
+    fun deletePost(postId: Int) {
+        viewModelScope.launch {
+            val result = apiServices.deletePosts(postId)
+            result.fold(
+                onSuccess = {
+                    _posts.value = _posts.value.filter { it.id != postId }
+                },
+                onFailure = {
+                    it.printStackTrace()
+                }
+            )
+        }
+    }
+
     private fun uploadNewPost() {
         viewModelScope.launch {
             val post = PostModel(3654,1,"Grokking Algorithms","Grokking algorithms book is the best choice for beginners ")
@@ -112,4 +126,5 @@ class SharedPostsViewModel(
             )
         }
     }
+
 }

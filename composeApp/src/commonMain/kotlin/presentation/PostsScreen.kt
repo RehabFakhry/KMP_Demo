@@ -1,5 +1,6 @@
 package presentation
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -7,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -31,10 +33,10 @@ fun PostsScreen(viewModel: SharedPostsViewModel) {
         ) { padding ->
             LazyColumn(
                 contentPadding = padding,
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.padding(horizontal = 16.dp)
             ) {
-                items(posts) {post->
-                    PostItem(post)
+                items(posts) { post ->
+                    PostItem(post) { viewModel.deletePost(post.id) }
                 }
             }
         }
@@ -42,11 +44,12 @@ fun PostsScreen(viewModel: SharedPostsViewModel) {
 }
 
 @Composable
-fun PostItem(post: PostModel) {
+fun PostItem(post: PostModel, onItemClicked: (itemId: Int) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
+            .clickable { onItemClicked(post.id) }
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = post.title, style = MaterialTheme.typography.h6)
